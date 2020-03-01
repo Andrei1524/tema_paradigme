@@ -7,7 +7,7 @@
     </div>
     <div>
       <label for="">Pret:</label>
-      <input type="text" @change="checkForText" v-model="apartament.pret" />
+      <input type="text" @change="checkForText" v-model="apartament.pretFormated" />
     </div>
     <div>
       <label for="">Suprafata:</label>
@@ -49,7 +49,8 @@ export default {
                 nume: "",
                 suprafata: undefined,
                 camere: undefined,
-                pret: undefined,
+                pretFormated: undefined,
+                pret: 0,
                 imagini: [],
                 imaginiPaths: []
             },
@@ -97,7 +98,8 @@ export default {
             minimumFractionDigits: 2
           })
 
-          this.apartament.pret = formatter.format(this.apartament.pret)
+          this.apartament.pretFormated = formatter.format(this.apartament.pretFormated)
+          this.apartament.pret = e.target.value;
         },
 
         checkIfApNameExists() {

@@ -1,5 +1,13 @@
 <template>
   <div>
+    <div>
+      Ordoneaza dupa:
+
+      <select id="ordoneaza-dupa" v-model="pret">
+        <option value="ieftin">Ieftin</option>
+        <option value="scump">Scump</option>
+    </select>
+    </div>
     <div v-if="getApartamente">
       <ApartamentList v-for="apartament in getApartamente" :apartament="apartament" :key="apartament.id"></ApartamentList>
     </div>
@@ -22,12 +30,17 @@ export default {
   components: {ApartamentList},
   data() {
     return {
+      pret: undefined
     }
   },
   created() {
   },
   computed: {
     getApartamente() {
+      if (this.pret !== undefined) {
+        if (this.pret == "ieftin") return this.$store.getters.getApartamente.sort((a,b) => a.pret - b.pret)
+        if (this.pret == "scump") return this.$store.getters.getApartamente.sort((a,b) => a.pret - b.pret).reverse()
+      }
       return this.$store.getters.getApartamente
     }
   }

@@ -8,18 +8,59 @@
       </router-link>
       <router-link class="nav-link" to="/adauga">&#10010; Adauga</router-link>
 
-      <input type="text" placeholder="search" class="search nav-link">
+      <div class="search-wrapper">
+          <input type="text" placeholder="cauta dupa nume" class="search nav-link" v-model="searchCriteria.nume" @keyup="searchAp">
+        <div>
+            <input type="number" v-model="searchCriteria.pret.de_la" placeholder="pret de la: "> | <input type="number" v-model="searchCriteria.pret.pana_la" placeholder="pana la:">
+        </div>
+      </div>
     </nav>
   </header>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      switchRoute: false,
+      showOtherOptions: false,
+      searchCriteria: {
+        nume: "",
+        pret: {
+          de_la: 0,
+          pana_la: 0
+        }
+      }
+    }
+  },
+  created() {
+  },
+  methods: {
+    searchAp(e) {
+      if (this.switchRoute === false) {
+        this.switchRoute = true;
+      }
+
+      if (!(this.switchRoute && this.$router.history.current.fullPath == '/search')) {
+        this.$router.push('/search')
+
+        
+      }
+
+      if (!e.target.value) {
+        this.$router.push('/')
+        this.showOtherOptions = false;
+      }
+     this.$store.dispatch('searchAp', this.searchCriteria)
+    }
+  }
+};
 </script>
 
 <style scoped lang="scss">
 nav {
     display: flex;
+        align-items: center;
 }
 .nav-link {
     text-decoration: none;
@@ -27,7 +68,6 @@ nav {
     padding: 6px 11px;
     margin: 5px;
     background: #fdfdfd;
-    text-transform: uppercase;
     border: 1px solid #cecece;
     transition: 0.4s;
     i {
@@ -51,7 +91,7 @@ header {
     box-sizing: border-box;
 }
 
-.search {
+.search-wrapper {
       margin-left: auto;
     text-align: center;
 }

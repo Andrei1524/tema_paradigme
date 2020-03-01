@@ -63,7 +63,7 @@ a, span {
 }
 
 .content {
-    margin-top: 62px;
+    margin-top: 76px;
 
 }
 

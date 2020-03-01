@@ -4,6 +4,7 @@ let  rimraf = require("rimraf"); // pt stergerea unui folder cu fisiere
 
 const state = {
   apartamente: [],
+  searchKeywords: {},
   postIndexCounter: 0
 }
 
@@ -15,6 +16,9 @@ const mutations = {
   deleteAp(state, payload) {
     state.apartamente = payload.apartamente
     state.postIndexCounter = payload.postIndexCounter
+  },
+  searchAp(state, payload) {
+    state.searchKeywords = payload
   }
 
 }
@@ -68,12 +72,31 @@ const actions = {
               
               dispatch('initDataAction')
           })
+  },
+  searchAp({commit}, payload) {
+    commit('searchAp', payload);
   }
 }
 
 const getters = {
     getApartamente(state) {
         return state.apartamente
+    },
+    getSearchResults(state) {
+        let nume = state.searchKeywords.nume.replace(/ /g, "")
+        let results = state.apartamente.filter(ap => ap.nume.indexOf(nume) >= 0 )
+        // 
+
+        if (state.searchKeywords.pret.de_la) {
+          results = results.filter(ap => Number(ap.pret) >= Number(state.searchKeywords.pret.de_la))
+        }
+
+        if (state.searchKeywords.pret.pana_la) {
+          results = results.filter(ap => Number(ap.pret) <= Number(state.searchKeywords.pret.pana_la))
+        }
+
+        return results
+      
     }
 }
 

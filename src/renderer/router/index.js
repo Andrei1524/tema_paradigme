@@ -16,6 +16,11 @@ export default new Router({
       component: require('@/components/AdaugaApartament').default
     },
     {
+      path: '/search',
+      name: 'cauta-apartament',
+      component: require('@/components/SearchResults').default
+    },
+    {
       path: '*',
       redirect: '/'
     }
