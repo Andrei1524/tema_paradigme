@@ -39,9 +39,37 @@ const actions = {
     //console.log(dataJSON)
     
     fs.writeFileSync(localData + "/data.json", JSON.stringify(dataJSON))
-    rimraf(`${localData}/${ap.id}`, function () { console.log("done"); });
+    rimraf(`${localData}/${ap.id}`, function () { console.log("done"); }); // stergem poza legata de json
 
     dispatch('initDataAction')
+  },
+  deleteImage({commit, dispatch}, imagePath) {
+    let dataJSON = JSON.parse(fs.readFileSync(localData + "/data.json"))
+    
+    let foundApWithImage = dataJSON.apartamente.find(ap => ap.imaginiPaths.find(path => path == imagePath))
+    // din apartamentul gasit mai sus, stergem poza selectata si salvam
+    
+    let apFaraImagine = foundApWithImage.imaginiPaths.filter(path => path != imagePath)
+
+    foundApWithImage.imaginiPaths = apFaraImagine
+    
+
+    dataJSON.apartamente.forEach(ap => { // intram in toate apartamentele, gasim apartamentul caruia i-am scos path ul la poza si il salvam iar fara poza
+      if (ap.id === foundApWithImage.id) {
+        ap = foundApWithImage
+      }
+    })
+
+
+    fs.unlink(imagePath, (err) => {
+      if (err) throw err;
+       //console.log('successfully deleted img');
+    });
+    
+    // //salvam schimbarile la json pe disk
+    fs.writeFileSync(localData + "/data.json", JSON.stringify(dataJSON))
+    dispatch('initDataAction')
+
   },
   adaugaAp({commit, dispatch}, apartament) {
         // let idIndex = JSON.parse(fs.readFileSync(localData + "/data.json")).postIndexCounter
@@ -82,9 +110,12 @@ const getters = {
     getApartamente(state) {
         return state.apartamente
     },
+    getApartament: state => id => {
+      return state.apartamente.find(ap => ap.id == id)
+    },
     getSearchResults(state) {
         let nume = state.searchKeywords.nume.replace(/ /g, "")
-        let results = state.apartamente.filter(ap => ap.nume.indexOf(nume) >= 0 )
+        let results = state.apartamente.filter(ap => ap.nume.replace(/ /g, "").indexOf(nume) >= 0 )
         // 
 
         if (state.searchKeywords.pret.de_la) {

@@ -22,7 +22,9 @@
       <label for="">Imagini:</label>
       <div class="imagini-prew">
           
-          <img v-for="imagine in imagini_preview" :src="imagine" :key="imagine" alt="" class="img">
+          <div>
+            <img v-for="imagine in imagini_preview" :src="imagine" :key="imagine" alt="" class="img">
+          </div>
       </div>
     
       <img src="../assets/add_image.png" @click="selectImage" alt="" class="adaugaImagini">

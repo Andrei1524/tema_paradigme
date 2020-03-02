@@ -10,7 +10,7 @@
 
       <div class="search-wrapper">
           <input type="text" placeholder="cauta dupa nume" class="search nav-link" v-model="searchCriteria.nume" @keyup="searchAp">
-        <div>
+        <div class="pret">
             <input type="number" v-model="searchCriteria.pret.de_la" placeholder="pret de la: "> | <input type="number" v-model="searchCriteria.pret.pana_la" placeholder="pana la:">
         </div>
       </div>
@@ -94,5 +94,11 @@ header {
 .search-wrapper {
       margin-left: auto;
     text-align: center;
+}
+.pret {
+
+  input {
+    width: 50px;
+  }
 }
 </style>

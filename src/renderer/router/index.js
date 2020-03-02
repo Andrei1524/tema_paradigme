@@ -21,6 +21,11 @@ export default new Router({
       component: require('@/components/SearchResults').default
     },
     {
+      path: '/ap/:id',
+      name: 'vizualizare-apartament',
+      component: require('@/components/VizualizareAp').default
+    },
+    {
       path: '*',
       redirect: '/'
     }

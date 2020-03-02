@@ -57,6 +57,7 @@ export default {
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
+  /* background-image: url('./assets/pattern.jpg'); */
 }
 a, span {
   display: block;

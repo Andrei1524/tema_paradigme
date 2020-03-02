@@ -1,5 +1,5 @@
 <template>
-    <div class="ap">
+    <div class="ap" @click="vizAp">
         <div class="ap-nume"><h2>{{apartament.nume}}</h2> <h5>{{ apartament.pret }}</h5></div>
         <div class="ap-detali">
             <h3>{{ apartament.suprafata }} <small>mp<sup>2</sup></small></h3> 
@@ -8,10 +8,10 @@
         </div>
 
         <div class="imagini-ap">
-            <img class="img" v-for="imagine in apartament.imaginiPaths" :key="imagine" :src="imagine" alt="">
+            <img @click="delImg(imagine)" class="img" v-for="imagine in apartament.imaginiPaths" :key="imagine" :src="'https://img3.imonet.ro/XV07/V0700FPHMI2/prezentare_620x465.jpg'" alt="">
         </div>
 
-        <div class="delete-ap" @click="deleteAp(apartament)">
+        <div class="delete-ap" @click.stop="deleteAp(apartament)">
             <span>X</span>
             <span>DELETE</span>
         </div>
@@ -25,6 +25,16 @@ export default {
     methods: {
         deleteAp(ap) {
             this.$store.dispatch('deleteAp', ap);
+        },
+        vizAp() {
+            //console.log('viz ap', this.apartament)
+            this.$router.push(`/ap/${this.apartament.id}`)
+        },
+        delImg(imagine) {
+            let apImagini = this.$store.getters.getApartamente
+            
+
+            this.$store.dispatch('deleteImage', imagine)
         }
     }
 }
@@ -62,6 +72,8 @@ h2,h3,h4, h5 {
     min-width: 340px;
     letter-spacing: 2px;
     box-shadow: 0 2px 6px #c7c7c7;
+    cursor: pointer;
+    background: #FFF;
 }
 
 .ap-detali {
