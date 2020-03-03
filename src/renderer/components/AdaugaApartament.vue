@@ -175,9 +175,11 @@ export default {
 }
 
 .imagini-prew {
-    display: grid !important;
+    > div {
+      display: grid !important;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 5px;
+    }
   .img {
     background-position: center !important;
     background-repeat: no-repeat !important;

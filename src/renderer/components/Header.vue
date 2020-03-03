@@ -11,7 +11,8 @@
       <div class="search-wrapper">
           <input type="text" placeholder="cauta dupa nume" class="search nav-link" v-model="searchCriteria.nume" @keyup="searchAp">
         <div class="pret">
-            <input type="number" v-model="searchCriteria.pret.de_la" placeholder="pret de la: "> | <input type="number" v-model="searchCriteria.pret.pana_la" placeholder="pana la:">
+            <span>dupa pret:</span>
+            <input type="number" v-model="searchCriteria.pret.de_la" placeholder="pret de la: "> <span>|</span> <input type="number" v-model="searchCriteria.pret.pana_la" placeholder="pana la:">
         </div>
       </div>
     </nav>
@@ -96,7 +97,9 @@ header {
     text-align: center;
 }
 .pret {
-
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   input {
     width: 50px;
   }

@@ -1,9 +1,9 @@
 <template>
     <div class="view_ap">
-        <span class="edit">&#9998; EDIT</span>
+        <span class="edit" @click="editeazaApartamentul">&#9998; EDIT</span>
         <h1>{{ getApartament.nume }}</h1>
 
-        <img class="ap_first_img" :src="'https://urban-invest.ro/wp-content/uploads/2018/11/apartamente-header-1.jpg'" alt="">
+        <img class="ap_first_img" :src="getApartament.imaginiPaths[0]" alt="">
 
         <div class="ap_info">
             <h3>&euro; {{ getApartament.pret }}</h3>
@@ -13,7 +13,7 @@
 
         <h2>Mai multe imagini: </h2>
         <div class="ap_imagini">
-            <img @click="delImg(imagine)" class="img" v-for="imagine in getApartament.imaginiPaths" :key="imagine" :src="'https://img3.imonet.ro/XV07/V0700FPHMI2/prezentare_620x465.jpg'" alt="">
+            <img class="img" v-for="imagine in getApartament.imaginiPaths" :key="imagine" :src="imagine" alt="">
         </div>
     </div>
 </template>
@@ -23,6 +23,11 @@ export default {
     computed: {
         getApartament() {
             return this.$store.getters.getApartament(this.$router.currentRoute.params.id)
+        }
+    },
+    methods: {
+        editeazaApartamentul() {
+            this.$router.push(`/ap/${this.getApartament.id}/edit`)
         }
     },
     created() {

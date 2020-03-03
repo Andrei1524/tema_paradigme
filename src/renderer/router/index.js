@@ -26,6 +26,11 @@ export default new Router({
       component: require('@/components/VizualizareAp').default
     },
     {
+      path: '/ap/:id/edit',
+      name: 'edit-apartament',
+      component: require('@/components/EditareApartament.vue').default
+    },
+    {
       path: '*',
       redirect: '/'
     }

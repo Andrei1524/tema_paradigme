@@ -8,7 +8,7 @@
         </div>
 
         <div class="imagini-ap">
-            <img @click="delImg(imagine)" class="img" v-for="imagine in apartament.imaginiPaths" :key="imagine" :src="'https://img3.imonet.ro/XV07/V0700FPHMI2/prezentare_620x465.jpg'" alt="">
+            <img class="img" v-for="imagine in apartament.imaginiPaths" :key="imagine" :src="imagine" alt="">
         </div>
 
         <div class="delete-ap" @click.stop="deleteAp(apartament)">
@@ -29,12 +29,6 @@ export default {
         vizAp() {
             //console.log('viz ap', this.apartament)
             this.$router.push(`/ap/${this.apartament.id}`)
-        },
-        delImg(imagine) {
-            let apImagini = this.$store.getters.getApartamente
-            
-
-            this.$store.dispatch('deleteImage', imagine)
         }
     }
 }

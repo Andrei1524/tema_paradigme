@@ -101,6 +101,17 @@ const actions = {
               dispatch('initDataAction')
           })
   },
+
+  editeazaAp({commit, dispatch}, apartament) {
+    let dataJSON = JSON.parse(fs.readFileSync(localData + "/data.json"))
+
+    let indexInDataJsonApartamente = dataJSON.apartamente.findIndex(ap => ap.id == apartament.id)
+    dataJSON.apartamente[indexInDataJsonApartamente] = apartament
+    
+  
+    fs.writeFileSync(localData + "/data.json", JSON.stringify(dataJSON))
+    dispatch('initDataAction')
+  },
   searchAp({commit}, payload) {
     commit('searchAp', payload);
   }
